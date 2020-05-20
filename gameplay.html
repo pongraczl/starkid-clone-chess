@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StarKid Clone - Game</title>
+    <script src="jquery-3.2.0.min.js"></script>
+    <script src="controllers/gameController.js"></script>
+    <script src="controllers/boardController.js"></script>
+    <script src="controllers/movementController.js"></script>
+    <script src="controllers/mediaController.js"></script>
+
+    <script src="theme/theme_chess.js"></script>
+
+    <script src="level/chess_tunnel.js"></script>
+    <script src="level/chess_x.js"></script>
+    <script src="level/chess_waves.js"></script>
+
+
+    <style>
+        body {
+            background-size:cover;
+        }
+        #gameArea {
+            position: relative;
+            margin: 30px;
+            background-color: green;
+        }
+        #outline2 {
+            background-color: rgba(0,0,0, 0.5);
+            position: fixed;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 25px;
+        }
+        #outline1 {
+            background-color: rgba(255,255,255, 0.7);
+            position: relative;
+            padding: 30px;
+            margin: 50px;
+            border-radius: 25px;
+        }
+        #container {
+            margin: 5px 5px;
+            position: relative;
+        }
+        #upperInfo{
+            margin:0px;
+            position: relative;
+            width: 100%;
+        }
+        .infobox {
+            position: relative;
+            float: left;
+            padding: 10px;
+            margin: 0px;
+            background-color: rgba(100,200,150,0.7);
+            border-radius: 15px;
+        }
+        #healthInfo{
+
+        }
+        #levelInfo{
+            margin: auto;
+
+            background-color: rgba(0,100,0,0.8);
+        }
+        #scoreInfo{
+
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            margin: auto;
+            padding:10px;
+            left:0;
+            top:0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 25px;
+        }
+        .modal-content{
+            padding:20px;
+            width:50%;
+            margin:auto;
+        }
+        #exitButton {
+            color: white;
+            padding: 10px;
+            float:right;
+        }
+        #exitButton:hover {
+            color: black;
+            background-color: white;
+            padding: 10px;
+            float:right;
+        }
+    </style>
+
+</head>
+<body onload="init()">
+  <div id="exit"></div>
+  <div id="outline2">
+      <div onclick="window.location.replace('index.html?scores=' + util_code_scores(scores_of_players));" id="exitButton">Kilép</div>
+      <div id="outline1">
+          <table id="upperInfo"><tr>
+              <td><div id="healthInfo" class="infobox">
+                  <div id="player" class="infodata">Játékos neve</div>
+                  <div id="health" class="infodata">Élet: 0</div>
+                  <div id="death" class="infodata">Halál: 0</div>
+              </div></td>
+              <td><div id="levelInfo" class="infobox">
+                  <div id="campaign" class="infodata">Küldetés: </div>
+                  <div id="level" class="infodata">Pálya: </div>
+                  <div id="difficulty" class="infodata">Nehézség: </div>
+              </div></td>
+              <td><div id="scoreInfo" class="infobox">
+                  <div id="score" class="infodata">Pontszám: 00000000</div>
+                  <div id="food" class="infodata">Ételek : 0</div>
+              </div></td>
+          </tr></table>
+          <div id="container">
+              <div id="gameArea"></div>
+          </div>
+      </div>
+  </div>
+
+  <div id="popupInformation"></div>
+
+  <script>
+      let init = function() {
+          let searchParams = new URLSearchParams(window.location.search);
+          let gameInfo = {
+              player_name   : searchParams.get('name'),
+              campaign      : searchParams.get('campaign'),
+              level         : searchParams.get('level'),
+              difficulty    : searchParams.get('difficulty')
+          };
+          scores_of_players = [];
+          if (searchParams.get('scores')) {
+              scores_of_players = util_decode_scores(searchParams.get('scores'));
+          }
+
+          startGame(gameInfo);
+      };
+
+  </script>
+</body>
+</html>

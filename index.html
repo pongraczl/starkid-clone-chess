@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Starkid Clone</title>
+    <script src="jquery-3.2.0.min.js"></script>
+    <script src="controllers/gameController.js"></script>
+    <style>
+        body {
+            background-image: url("res/background/starkids_obstacle_picture_2.png");
+            background-size: cover;
+        }
+        .content {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 25px;
+            text-align: center;
+        }
+        h1 {
+            padding: 25px;
+        }
+        .menu {
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+            padding: 50px;
+            font-weight: bold;
+        }
+        ul{
+            margin-left: auto;
+            margin-right: auto;
+            list-style-type: none;
+            padding:0;
+        }
+        li {
+
+        }
+        li span {
+            display: block;
+            padding: 25px;
+            font-family: SansSerif;
+            font-size: 20px;
+            text-decoration: none;
+            color: inherit;
+            outline: 0;
+        }
+        li span:hover{
+            background-color: rgba(255,255,255,0.5);
+            color: black;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            margin: auto;
+            padding:10px;
+            left:0;
+            top:0px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 25px;
+        }
+        .modal-content{
+            padding:20px;
+            width:50%;
+            margin:auto;
+        }
+    </style>
+    <script>
+        //read scores
+        let scores = [];
+        let searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.get('scores')) {
+            scores = util_decode_scores(searchParams.get('scores'));
+        }
+
+        let startCampaign = function () {
+            $("#scoreInput").val(util_code_scores(scores));
+            $("#newCampaign").css({display : "block"});
+        };
+        let showScores = function() {
+            let tableContent = "";
+            scores.forEach(function(data) {
+               tableContent += "<tr><td>" + data.name + "</td><td>" + data.score + "</td></tr>";
+            });
+            console.log(scores);
+            $("#scoreListData").html(tableContent);
+            $("#scoreList").css({display: "block"});
+            console.log($("#scoreListData").html());
+        };
+        let clearModal = function() {
+            $(".modal").css({display : "none"});
+        };
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div id="title" class="content">
+            <h1>Starkid's obstacle course - klón</h1>
+        </div>
+        <div id="menu" class="menu content">
+            <ul>
+                <li onclick="startCampaign()"><span>Küldetés</span></li>
+                <!--<li><span>Szabad játék</span></li> -->
+                <li onclick="showScores()"><span>Toplista</span></li>
+                <!--<li><span>Információk</span></li> -->
+            </ul>
+        </div>
+    </div>
+    <!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
+    <div id="newCampaign" class="modal">
+        <div class="modal-content content">
+            <form action="gameplay.html" target="_parent" method="GET">
+                <h1>Pontszerző küldetés</h1>
+                <h3>Add meg a neved:</h3>
+                <input type="text" name="name"/>
+                <h3>Válassz küldetést:</h3>
+                <select name="campaign">
+                    <option value="chess">Sakk</option>
+                </select>
+                <h3>Válassz nehézségi fokozatot:</h3>
+                <select name="difficulty">
+                    <option value="IMMORTAL">Halhatatlan</option>
+                    <option value="NORMAL" selected>Normál</option>
+                    <option value="ONELIFE">Egyszer élünk</option>
+                </select>
+                <input type="hidden" id="scoreInput" name="scores" />
+                <br/><br/><br/><br/>
+                <button onclick="clearModal()" type="button">Vissza</button>
+                <button onclick="clearModal()" type="submit">START</button>
+            </form>
+        </div>
+    </div>
+    <div id="scoreList" class="modal">
+        <div class="modal-content content">
+            <h1>Pontszámok</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Pontszám</th>
+                </tr>
+                </thead>
+                <tbody id="scoreListData">
+                </tbody>
+            </table>
+            <button onclick="clearModal()">Vissza</button>
+        </div>
+    </div>
+
+
+</body>
+</html>

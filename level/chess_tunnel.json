@@ -1,0 +1,61 @@
+{
+  "id" : "CHESS_TUNNEL",
+  "title" : "Sakk alagút",
+  "theme" : "chess",
+  "levelinfo" : "Szedd fel az órákat, és juss el a tábla jobb oldalára!",
+  "blocks" : [
+	["P_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "F_W"],
+	["P_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "F_B"],
+	["P_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "F_W"],
+	["P_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "W_B", "W_W", "F_B"],
+  ],
+  "start" : [0,1],
+  "enemies" : [
+	{
+	  "type" : "BASTYA",
+	  "score" : 50,
+	  "rotationtype" : "FIX",
+	  "speed": 1.0,
+	  "route" : [ [1, 0], [17,0] ]
+	},
+	{
+	  "type" : "BASTYA",
+	  "score" : 50,
+	  "rotationtype" : "FIX",
+	  "speed": 1.0,
+	  "route" : [ [17, 1], [1, 1] ]
+	},
+	{
+	  "type" : "BASTYA",
+	  "score" : 50,
+	  "rotationtype" : "FIX",
+	  "speed": 1.0,
+	  "route" : [ [1, 2], [17,2] ]
+	},
+	{
+	  "type" : "BASTYA",
+	  "score" : 50,
+	  "rotationtype" : "FIX",
+	  "speed": 1.0,
+	  "route" : [ [17, 3], [1,3] ]
+	}
+  ],
+  "food" : [
+	{ "type" : "chess_clock_left",
+	  "positions" : [
+		[5,0], [13,0],
+		[9,1], [10,1],
+		[9,2], [10,2],
+		[5,3], [13,3]
+	  ]
+	},
+	{ "type" : "chess_clock_right",
+	  "positions" : [
+		[6,0], [14,0],
+		[10,1], [11,1],
+		[10,2], [11,2],
+		[6,3], [14,3]
+	  ]
+	}
+  ]
+}
